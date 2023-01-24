@@ -1,0 +1,18 @@
+import PyPDF2
+
+def add_password(file_path, password):
+    # Open the PDF file
+    with open(file_path, 'rb') as file:
+        pdf = PyPDF2.PdfFileReader(file)
+
+    # Set the encryption parameters
+    pdf.encrypt(password)
+
+    # Write the encrypted PDF to a new file
+    with open(file_path + '.locked', 'wb') as file:
+        pdf_writer = PyPDF2.PdfFileWriter()
+        pdf_writer.appendPagesFromReader(pdf)
+        pdf_writer.write(file)
+
+# Example usage:
+add_password("file.pdf", "password")
